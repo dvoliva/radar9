@@ -403,6 +403,12 @@ def link(path: str, label: str, cls: str = "") -> str:
     return f'<a class="{esc(cls)}" href="{esc(path)}">{esc(label)}</a>'
 
 
+@cache
+def asset_url(name: str) -> str:
+    revision = hashlib.sha256((WEB / name).read_bytes()).hexdigest()[:12]
+    return f"{BASE}assets/{name}?v={revision}"
+
+
 def field_link(c: Catalog, i: int, cls: str = "field-link") -> str:
     return link(f"{BASE}categorias/{i}/", c.fields[i], cls)
 
@@ -434,9 +440,10 @@ def card(c: Catalog, a: Article, label: str = "", number: int | None = None) -> 
             f'data-added="{a.added.isoformat() if a.added else ""}" '
             f'data-score="{a.relevance}">{num}<div class="story-copy"><div class="story-top">'
             f'{field_link(c, a.primary)}{badge}<span class="read-badge" data-read-badge hidden>Leído</span>'
-            f'</div><h3>{link(a.path, a.title)}</h3><p>{esc(a.summary)}</p>'
+            f'</div><h3>{link(a.path, a.title)}</h3>'
             f'<div class="story-meta">{day_tag(a.published)}<span>{a.minutes} min</span>'
-            f'<span>{esc(a.depth)}</span><span>Relevancia {a.relevance}/100</span>{source_tag}</div>'
+            f'{source_tag}</div><details class="story-summary"><summary>Resumen ejecutivo</summary>'
+            f'{paragraphs(a.summary)}</details>'
             f'</div></article>')
 
 
@@ -446,25 +453,31 @@ def resume_panel() -> str:
 
 
 def layout(title: str, desc: str, active: str, body: str, canonical: str) -> str:
-    nav = "".join(f'<a href="{BASE}{p}"' + (' aria-current="page"' if n == active else "") +
-                  f'>{n}</a>' for n, p in NAV)
+    primary = {"Inicio", "Hoy", "Explorar"}
+    def nav_link(name: str, path: str, cls: str) -> str:
+        current = ' aria-current="page"' if name == active else ""
+        return f'<a class="{cls}" href="{BASE}{path}"{current}>{name}</a>'
+    nav = "".join(nav_link(n, p, "nav-direct" if n in primary else "nav-secondary") for n, p in NAV)
+    more = "".join(nav_link(n, p, "nav-item") for n, p in NAV if n not in primary)
+    more_active = " has-current" if active in {n for n, _ in NAV if n not in primary} else ""
     return f"""<!doctype html>
 <html lang="es-CL"><head><meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="{esc(CSP)}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{esc(desc)}"><meta name="referrer" content="no-referrer">
 <title>{esc(title)} · RADAR 9</title><link rel="canonical" href="{esc(canonical)}">
-<link rel="icon" href="{BASE}assets/marca.svg" type="image/svg+xml">
-<script src="{BASE}assets/preferencias.js"></script><link rel="stylesheet" href="{BASE}assets/radar.css">
-<script defer src="{BASE}assets/radar.js"></script></head><body data-base="{BASE}">
+<link rel="icon" href="{asset_url('marca.svg')}" type="image/svg+xml">
+<script src="{asset_url('preferencias.js')}"></script><link rel="stylesheet" href="{asset_url('radar.css')}">
+<script defer src="{asset_url('radar.js')}"></script></head><body data-base="{BASE}">
 <a class="skip" href="#contenido">Saltar al contenido</a>
 <header class="mast"><div class="wrap mast-top"><a class="brand" href="{BASE}" aria-label="RADAR 9, inicio">
-<img src="{BASE}assets/marca.svg" alt="" width="44" height="44"><span>RADAR <b>9</b></span></a>
-<div class="mast-tag">Cuaderno de inteligencia<br><strong>profesional</strong></div>
-<a class="archive-link" href="{BASE}archivo/"><span aria-hidden="true">▤</span> Archivo de ediciones</a></div>
-<nav aria-label="Principal" class="main-nav"><div class="wrap nav-inner">{nav}</div></nav></header>
+<img src="{asset_url('marca.svg')}" alt="" width="44" height="44"><span>RADAR <b>9</b></span></a>
+<div class="mast-tag">Inteligencia profesional</div>
+<a class="archive-link" href="{BASE}archivo/">Archivo de ediciones</a></div>
+<nav aria-label="Principal" class="main-nav"><div class="wrap nav-inner">{nav}
+<details class="nav-more{more_active}"><summary>Más secciones</summary><div class="nav-panel">{more}</div></details></div></nav></header>
 <main class="wrap" id="contenido" tabindex="-1">{body}</main>
-<footer><div class="wrap footer-grid"><div><strong>RADAR 9</strong><p>Inteligencia profesional en nueve campos.</p></div>
+<footer><div class="wrap footer-grid"><div><strong>RADAR 9</strong><p>Proyecto personal e independiente. No es una publicación de HP Inc.</p></div>
 <div><a href="{BASE}archivo/">Archivo de ediciones</a> · <a href="{BASE}fuentes/">Fuentes</a><p>Horarios de Santiago de Chile · America/Santiago</p></div></div></footer>
 <div class="sr-only" role="status" id="anuncio"></div></body></html>
 """
@@ -513,16 +526,16 @@ def edition_list(c: Catalog, e: Edition) -> str:
     if not listing:
         listing = notice("Sin artículos en esta edición", "Puedes consultar la cobertura de otras fechas.",
                          link(BASE + "archivo/", "Ver el archivo", "text-link"))
-    return (f'<section class="edition-list" data-edition="{e.day}">' + section_title("Orden editorial", "Plan de lectura")
+    return (f'<section class="edition-list" id="plan-de-lectura" tabindex="-1" data-edition="{e.day}">' + section_title("Tu edición", "Plan de lectura")
             + time_selector(e) + f'<div class="story-list" data-edition-list>{listing}</div></section>')
 
 
 def edition_notes(c: Catalog, e: Edition) -> str:
     labels = Counter(label for _, label in e.items)
-    counts = (f'{count(labels["Nueva"], "nueva", "nuevas")} · '
-              f'{count(labels["Reciente"], "reciente", "recientes")} · '
-              f'{count(labels["Seguimiento"], "seguimiento", "seguimientos")}')
-    return (f'<section class="brief-note"><div><p class="eyebrow">Nota de edición</p><h2>El briefing</h2>'
+    counts = " · ".join(count(labels[key], one, many) for key, one, many in
+                        (("Nueva", "nueva", "nuevas"), ("Reciente", "reciente", "recientes"),
+                         ("Seguimiento", "seguimiento", "seguimientos")) if labels[key]) or "Sin lecturas nuevas"
+    return (f'<section class="brief-note"><div><h2>El briefing</h2>'
             f'<p class="brief-counts">{counts}</p></div><div class="brief-copy">'
             f'{paragraphs(e.briefing) or "<p>Consulta los artículos en su orden editorial.</p>"}'
             f'<p class="fine">Publicación: {clock(e.published)} · Santiago</p></div></section>')
@@ -539,20 +552,24 @@ def home(c: Catalog) -> str:
     lead = e.items[0][0] if e and e.items else None
     day = day_tag(e.day, True) if e else "Primera edición pendiente"
     headline = link(lead.path, lead.title) if lead else "Una mirada a nueve campos"
-    description = lead.summary if lead else "Un cuaderno para seguir la tecnología, la industria y sus efectos en la práctica profesional."
-    artwork = f'<div class="sweep" aria-hidden="true"><img src="{BASE}assets/barrido.svg" alt="" width="540" height="390"><span>FIG. 01 &nbsp; / &nbsp; BARRIDO DE CAMPO</span></div>'
-    result = (f'<h1 class="home-title">El radar del día<span>.</span></h1><div class="issue-line">'
-              f'<span>Inteligencia profesional</span><span>{day}</span></div>'
-              f'<section class="cover"><div class="cover-copy"><p class="signal"><i></i> '
+    source = next((r.source.org for r in lead.refs if r.source), "") if lead else ""
+    description = " · ".join(filter(None, (source, f"{lead.minutes} min de lectura"))) if lead else (
+        "Actualidad tecnológica y empresarial explicada en español.")
+    artwork = f'<div class="sweep" aria-hidden="true"><img src="{asset_url("barrido.svg")}" alt="" width="540" height="390"></div>'
+    result = (f'<header class="home-head"><h1 class="home-title">El radar del día<span>.</span></h1>'
+              f'<p class="issue-line">{day}</p></header>'
+              f'<section class="cover"><div class="cover-copy"><p class="signal">'
               f'{"En portada · " + esc(c.fields[lead.primary]) if lead else "Cuaderno editorial"}</p>'
               f'<h2>{headline}</h2><p>{esc(description)}</p><div class="cover-actions">'
               + (link(lead.path, "Leer el análisis", "button bright") if lead else "")
-              + link(BASE + "hoy/", "Abrir la edición de hoy", "cover-link") + f'</div></div>{artwork}</section>'
-              + status_strip(c) + resume_panel() + '<p class="visit-note" data-novelty hidden></p>')
+              + (link("#plan-de-lectura", "Ir al plan de lectura", "cover-link") if e else
+                 link(BASE + "hoy/", "Ver la edición", "cover-link")) + f'</div></div>{artwork}</section>'
+              + resume_panel())
     result += (edition_notes(c, e) + edition_list(c, e)) if e else empty_edition()
-    return (result + section_title("Mapa de cobertura", "Los nueve campos",
+    return (result + '<p class="visit-note" data-novelty hidden></p>'
+            + section_title("Mapa de cobertura", "Los nueve campos",
                                    link(BASE + "categorias/", "Ver categorías", "text-link"))
-            + field_grid(c))
+            + field_grid(c) + status_strip(c))
 
 
 def edition_page(c: Catalog, e: Edition | None, today: bool) -> str:
@@ -722,8 +739,8 @@ def reader(c: Catalog, a: Article) -> str:
         sections.append(("conceptos", "Conceptos clave", f'<dl class="glossary">{glossary}</dl>'))
     sections.append(("fuentes", "Fuentes y verificación", reference_list(a) if a.refs else '<p>Sin referencias registradas.</p>'))
     contents = "".join(f'<li>{link("#" + anchor, name)}</li>' for anchor, name, _ in sections)
-    prose = "".join(f'<section id="{anchor}"><p class="section-number" aria-hidden="true">{i:02d} /</p>'
-                    f'<h2>{esc(name)}</h2>{content}</section>' for i, (anchor, name, content) in enumerate(sections, 1))
+    prose = "".join(f'<section id="{anchor}"><h2>{esc(name)}</h2>{content}</section>'
+                    for anchor, name, content in sections)
     edition_links = "".join(link(c.editions[d].path, date_name(d), "tag") for d in c.membership[a.key])
     labels = [label for d in c.membership[a.key][:1] for b, label in c.editions[d].items if b.key == a.key]
     latest_label = f'<span class="badge">{esc(labels[0])}</span>' if labels else ""
@@ -740,7 +757,7 @@ def reader(c: Catalog, a: Article) -> str:
 <header class="reader-head"><div class="story-top"><p class="eyebrow">Cuaderno de análisis · Campo {a.primary:02d}</p>{latest_label}</div>
 <h1>{esc(a.title)}</h1><div class="lead">{paragraphs(a.summary, len(a.refs))}</div>
 <div class="reader-meta"><span>Publicación: {day_tag(a.published)}</span><span>{a.minutes} min de lectura</span>
-<span>Profundidad: {esc(a.depth)}</span><span>Relevancia: {a.relevance}/100</span></div></header>
+<span>{esc(a.depth)}</span></div></header>
 <div class="reader-tools" data-js hidden>{favorite_button(a)}
 <button class="tool" type="button" data-read aria-pressed="false">Marcar como leído</button>
 <button class="tool" type="button" data-share>Compartir enlace</button></div>
@@ -748,11 +765,12 @@ def reader(c: Catalog, a: Article) -> str:
 <div class="resume" data-reader-resume hidden><p></p><button type="button" class="tool">Volver al punto guardado</button></div>
 <div class="progress-panel" data-js hidden><label for="avance">Progreso de lectura</label>
 <progress id="avance" max="100" value="0"></progress><output for="avance">0 %</output></div>
-<div class="reader-layout"><aside class="reader-aside"><div><nav aria-label="Índice del artículo">
-<h2>En esta lectura</h2><ol>{contents}</ol></nav>{preferences()}</div></aside><div id="texto" class="prose reading-text">{prose}</div></div>
+<div class="reader-layout"><aside class="reader-aside"><div><details><summary>Índice del artículo</summary>
+<nav aria-label="Índice del artículo"><ol>{contents}</ol></nav></details><details data-js hidden>
+<summary>Ajustes de lectura</summary>{preferences()}</details></div></aside><div id="texto" class="prose reading-text">{prose}</div></div>
 <section class="file-card"><p class="eyebrow">Trazabilidad</p><h2>Ficha de la lectura</h2><dl>
 <div><dt>Elaboración</dt><dd>{esc(a.method)}</dd></div><div><dt>Detección</dt><dd>{clock(a.detected)}</dd></div>
-<div><dt>Incorporación</dt><dd>{clock(a.added)}</dd></div>{tag_rows}</dl>{link(a.path, "Enlace permanente", "text-link")}</section></article>{more}"""
+<div><dt>Incorporación</dt><dd>{clock(a.added)}</dd></div><div><dt>Relevancia editorial</dt><dd>{a.relevance}/100</dd></div>{tag_rows}</dl>{link(a.path, "Enlace permanente", "text-link")}</section></article>{more}"""
 
 
 def render(c: Catalog, out: Path) -> None:

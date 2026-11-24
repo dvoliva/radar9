@@ -30,6 +30,9 @@ La zona de lectura de fechas y horas es **America/Santiago**. Las fechas de publ
 
 ## Controles para navegación por teclado y pruebas
 
+- La portada presenta una sola lectura destacada y un enlace directo al plan. En las listas, «Resumen ejecutivo» despliega el texto completo sin abandonar la página. La ficha del artículo conserva la puntuación editorial.
+- En pantallas estrechas, Inicio, Hoy y Explorar quedan a la vista. «Más secciones» abre el resto de la navegación con teclado o toque. En el lector, el índice y los ajustes se pueden desplegar sin interrumpir el texto.
+- La paleta usa azul cobalto, blanco y neutros fríos; el tema oscuro adapta el contraste en lugar de invertir los colores. El símbolo y el gráfico son propios; no se distribuyen plantillas, logotipos ni fuentes corporativas. La tipografía del sistema se combina con serif para lectura larga.
 - En Inicio, Hoy o una edición: grupo «¿Cuánto tiempo tienes?», radios «5 min», «10 min», «15 min», «20 min», «30 min», «Completa». El plan estima 210 palabras/minuto. Selecciona lecturas que caben en el presupuesto, priorizando relevancia, después duración y después orden editorial. Si ninguna cabe, propone leer solo el resumen de la más relevante.
 - En Explorar: `getByRole('searchbox', {name: 'Buscar en el archivo'})`. Abrir «Filtros combinables» para los selectores «Campo» y «Edición» (`name="campo"` y `name="edicion"`). Los valores son el número de campo y la fecha ISO. También hay título, cuerpo, empresa, industria, fuente, fechas y orden; las combinaciones se reflejan en la URL.
 - En un artículo: botones «Guardar en favoritos» / «Quitar de favoritos» y «Marcar como leído» / «Marcar como no leído», con `aria-pressed`. «Compartir enlace» comparte o copia la URL permanente.

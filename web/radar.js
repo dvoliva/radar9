@@ -2,6 +2,20 @@
   "use strict";
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const navMore = $(".nav-more");
+  if (navMore) {
+    const closeOutside = (event) => {
+      if (navMore.open && !navMore.contains(event.target)) navMore.open = false;
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("focusin", closeOutside);
+    navMore.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && navMore.open) {
+        navMore.open = false;
+        $("summary", navMore).focus();
+      }
+    });
+  }
   const base = document.body.dataset.base;
   const prefix = "radar9:v1:";
   const keys = ["preferencias", "favoritos", "leidos", "progreso", "ultima", "visita"];

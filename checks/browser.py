@@ -27,13 +27,34 @@ def target(live):
             worker.join(timeout=5)
 
 
+def luminance(rgb):
+    channels = [int(v) / 255 for v in re.fullmatch(r"rgb\((\d+), (\d+), (\d+)\)", rgb).groups()]
+    linear = [(v / 12.92 if v <= .04045 else ((v + .055) / 1.055) ** 2.4) for v in channels]
+    return sum(v * w for v, w in zip(linear, (.2126, .7152, .0722)))
+
+
+def check_contrast(page):
+    colors = page.locator(".issue-line, .cover h2, .signal, .bright, .story-summary summary, "
+                          ".story-top .badge, .segments input:checked + span").evaluate_all("""items =>
+        items.filter(el => el.getClientRects().length).map(el => {
+          let bg = el;
+          while (bg.parentElement && getComputedStyle(bg).backgroundColor === 'rgba(0, 0, 0, 0)')
+            bg = bg.parentElement;
+          return [el.className || el.tagName, getComputedStyle(el).color, getComputedStyle(bg).backgroundColor];
+        })""")
+    for name, fg, bg in colors:
+        low, high = sorted((luminance(fg), luminance(bg)))
+        if (high + .05) / (low + .05) < 4.5:
+            raise AssertionError(f"Contraste de lectura insuficiente en {name}: {fg} / {bg}")
+
+
 def exercise(browser, base):
     issues = []
     articles = records(ROOT / "data/articles")
     editions = records(ROOT / "data/editions")
     origin = urlsplit(base).netloc
     for width, height in [(1366, 900), (390, 844)]:
-        ctx = browser.new_context(viewport={"width": width, "height": height}, locale="es-CL")
+        ctx = browser.new_context(viewport={"width": width, "height": height}, locale="es-CL", color_scheme="light")
         page = ctx.new_page()
         page.set_default_timeout(7000)
         page.on("pageerror", lambda exc: issues.append("JavaScript: " + str(exc)))
@@ -43,14 +64,37 @@ def exercise(browser, base):
         page.goto(base)
         expect(page.locator("html")).to_have_attribute("lang", re.compile("^es"))
         expect(page.get_by_role("heading", level=1)).to_be_visible()
+        for scheme in ("dark", "light"):
+            page.emulate_media(color_scheme=scheme)
+            paper = page.locator("body").evaluate("el => getComputedStyle(el).backgroundColor")
+            if (luminance(paper) < .5) != (scheme == "dark"):
+                raise AssertionError("El tema automático no respeta el sistema")
+            check_contrast(page)
         if editions and next(reversed(editions.values()))["items"]:
+            page.get_by_role("link", name="Ir al plan de lectura", exact=True).click()
+            expect(page).to_have_url(re.compile(r"#plan-de-lectura$"))
             page.get_by_role("radio", name="5 min", exact=True).check()
             expect(page.locator("input[name=tiempo][value='5']")).to_be_checked()
             expect(page.locator("[data-budget-result]")).to_contain_text("5 min")
             page.get_by_role("radio", name="Completa", exact=True).check()
+            lead = articles[next(reversed(editions.values()))["items"][0]["id"]]
+            digest = page.locator(f'[data-story="{lead["id"]}"] .story-summary')
+            expect(digest.locator("p").first).to_be_hidden()
+            digest.locator("summary").click()
+            expect(digest.locator("p").first).to_contain_text(lead["summary"].split("\n\n")[0])
         routes = {}
+        principal = page.get_by_role("navigation", name="Principal", exact=True)
+        if width <= 768:
+            more = principal.get_by_text("Más secciones", exact=True)
+            more.focus()
+            more.press("Enter")
+            expect(principal.get_by_role("link", name="Categorías")).to_be_visible()
+            more.press("Escape")
+            expect(more).to_be_focused()
+            expect(principal.get_by_role("link", name="Categorías")).to_be_hidden()
+            more.click()
         for name in ("Hoy", "Categorías", "Explorar", "Favoritos", "Fuentes", "Configuración"):
-            nav = page.get_by_role("link", name=name, exact=True).first
+            nav = principal.get_by_role("link", name=name, exact=True)
             href = nav.get_attribute("href")
             if not href or not urlsplit(urljoin(base, href)).path.startswith(BASE):
                 raise AssertionError("Ruta de navegación incorrecta: " + name)
@@ -86,6 +130,10 @@ def exercise(browser, base):
             field.fill(article["title"])
             result.click()
             expect(page.get_by_role("heading", name=article["title"], exact=True)).to_be_visible()
+            page.locator(".reader-aside summary").filter(has_text="Índice del artículo").click()
+            toc = page.get_by_role("navigation", name="Índice del artículo", exact=True)
+            toc.get_by_role("link", name="Qué ocurrió", exact=True).click()
+            expect(page.locator("#hecho")).to_be_in_viewport()
             if page.evaluate("document.documentElement.scrollWidth > innerWidth + 1"):
                 raise AssertionError("El lector desborda la pantalla")
             expect(page.locator(f'a[href="{article["references"][0]["url"]}"]').first).to_be_visible()
@@ -101,10 +149,17 @@ def exercise(browser, base):
         ctx.close()
     if editions:
         # HTML del lector es un documento, no una aplicación vacía en espera de JavaScript.
-        ctx = browser.new_context(java_script_enabled=False)
+        ctx = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
         page = ctx.new_page()
         page.goto(base)
         expect(page.get_by_role("heading", level=1)).to_be_visible()
+        nav = page.get_by_role("navigation", name="Principal", exact=True)
+        nav.get_by_text("Más secciones", exact=True).click()
+        nav.get_by_role("link", name="Explorar", exact=True).click()
+        if articles:
+            detail = page.locator(".story-summary").first
+            detail.locator("summary").click()
+            expect(detail.locator("p").first).to_be_visible()
         ctx.close()
     if issues:
         raise AssertionError("Errores de navegador:\n" + "\n".join(issues[:12]))
