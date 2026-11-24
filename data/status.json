@@ -28,13 +28,13 @@
     },
     "hp-inc-edgar": {
       "last_success": null,
-      "checked_at": "2026-11-24T14:42:02Z",
-      "status": "requiere_contacto"
+      "checked_at": "2026-11-24T15:11:03Z",
+      "status": "no disponible"
     },
     "dell-edgar": {
       "last_success": null,
-      "checked_at": "2026-11-24T14:42:02Z",
-      "status": "requiere_contacto"
+      "checked_at": "2026-11-24T15:11:03Z",
+      "status": "no disponible"
     },
     "hp-certified-pcs": {
       "last_success": "2026-11-24T14:38:48Z",
@@ -82,14 +82,12 @@
       "status": "disponible"
     }
   },
-  "last_attempt": "2026-11-24T14:42:02Z",
-  "enrichment": "pendiente",
+  "last_attempt": "2026-11-24T15:11:03Z",
+  "enrichment": "activo",
   "result": "edición ya cerrada",
   "metrics": {
     "failed_sources": 2,
-    "cached_sources": 7,
-    "sources_ok": 2,
-    "warnings": 0,
+    "cached_sources": 9,
     "eligible": 0
   },
   "usage": {
@@ -98,5 +96,17 @@
     "output_tokens": 0,
     "estimated_usd": "0",
     "pending_reserved_usd": "0"
+  },
+  "models": {
+    "estándar": {
+      "name": "gpt-5.4-mini",
+      "available": true,
+      "checked_at": "2026-11-24T15:11:03Z"
+    },
+    "profundo": {
+      "name": "gpt-5.4",
+      "available": true,
+      "checked_at": "2026-11-24T15:11:03Z"
+    }
   }
 }
