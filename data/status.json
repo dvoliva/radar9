@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-11-24T14:38:48Z",
+  "last_run": "2026-11-24T14:42:02Z",
   "sources": {
     "lenovo-storyhub-docs": {
       "status": "verificada manualmente",
@@ -28,12 +28,12 @@
     },
     "hp-inc-edgar": {
       "last_success": null,
-      "checked_at": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:42:02Z",
       "status": "requiere_contacto"
     },
     "dell-edgar": {
       "last_success": null,
-      "checked_at": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:42:02Z",
       "status": "requiere_contacto"
     },
     "hp-certified-pcs": {
@@ -42,9 +42,9 @@
       "status": "disponible"
     },
     "hp-certified-printing": {
-      "last_success": null,
-      "checked_at": "2026-11-24T14:38:48Z",
-      "status": "no disponible"
+      "last_success": "2026-11-24T14:42:02Z",
+      "checked_at": "2026-11-24T14:42:02Z",
+      "status": "disponible"
     },
     "lenovo-certified-pcs": {
       "last_success": "2026-11-24T14:38:48Z",
@@ -75,16 +75,22 @@
       "last_success": "2026-11-24T14:38:48Z",
       "checked_at": "2026-11-24T14:38:48Z",
       "status": "disponible"
+    },
+    "apache-airflow": {
+      "last_success": "2026-11-24T14:42:02Z",
+      "checked_at": "2026-11-24T14:42:02Z",
+      "status": "disponible"
     }
   },
-  "last_attempt": "2026-11-24T14:38:48Z",
+  "last_attempt": "2026-11-24T14:42:02Z",
   "enrichment": "pendiente",
   "result": "edición ya cerrada",
   "metrics": {
-    "failed_sources": 3,
-    "sources_ok": 7,
-    "warnings": 1,
-    "eligible": 3
+    "failed_sources": 2,
+    "cached_sources": 7,
+    "sources_ok": 2,
+    "warnings": 0,
+    "eligible": 0
   },
   "usage": {
     "requests": 0,
