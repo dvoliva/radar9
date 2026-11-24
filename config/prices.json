@@ -1,0 +1,4 @@
+{
+  "gpt-5.4-mini": {"input": "0.75", "output": "4.50", "source": "https://developers.openai.com/api/docs/models/gpt-5.4-mini"},
+  "gpt-5.4": {"input": "2.50", "output": "15.00", "source": "https://developers.openai.com/api/docs/models/gpt-5.4"}
+}

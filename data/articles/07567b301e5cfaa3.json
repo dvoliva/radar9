@@ -1,0 +1,42 @@
+{
+  "id": "07567b301e5cfaa3",
+  "title": "Preparar no es enviar: Google separa los permisos de colaboración en Workspace Studio",
+  "summary": "Un flujo puede ser útil aunque no tenga permiso para enviar el correo que prepara. Google empezó el 19 de noviembre a desplegar un ajuste que permite a los administradores de Workspace Studio mantener las acciones privadas del creador y bloquear las que alcanzan a otras personas [1]. Es una decisión distinta de dónde se procesan los datos: el 20, Google detalló qué pasos de Studio pueden mantenerse en Estados Unidos o la Unión Europea, con diferencias entre licencias [2]. Para una institución que automatiza trámites, el reto es saber qué flujos seguirán funcionando bajo ambas políticas, no solo si Studio está habilitado.",
+  "sections": {
+    "event": "Google empezó a distribuir el 19 de noviembre un control para los pasos de colaboración de Workspace Studio, su herramienta para automatizar tareas. El ajuste viene activado: los flujos existentes conservan su capacidad de enviar correos, publicar en Chat o editar archivos compartidos. Un administrador puede restringirlos a acciones que solo ve su creador, como generar borradores o recibir notificaciones [1].\n\nLa política se puede aplicar por dominio, unidad organizativa o grupo. Si un flujo intenta ejecutar un paso que afecta a otras personas y la política lo impide, ese paso falla y el usuario recibe un error; Google no promete que el mensaje se convierta automáticamente en borrador. Tampoco hay un ajuste equivalente que el usuario pueda modificar. La empresa fijó un despliegue gradual de hasta quince días para la visibilidad de la opción [1].",
+    "context": "El ajuste del día 19 regula el efecto de una acción sobre otras personas o recursos [1]. Otro anuncio de Google, publicado el 20, abordó un problema distinto: la región en la que Studio almacena datos o los procesa. La empresa comunicó la disponibilidad general de Data Regions para Studio y precisó que su despliegue había empezado el 10 de noviembre. No es una segunda función estrenada el día 20 [2].\n\nSegún Google, los servicios centrales de Studio y las integraciones cubiertas con herramientas como Gmail, Drive y Docs respetan las políticas regionales asignadas de Estados Unidos o la Unión Europea. La cobertura depende de la edición: Business Standard y Business Plus incluyen almacenamiento regional, mientras que Enterprise Plus y Frontline Plus incluyen además procesamiento regional. La empresa advierte que, al desactivar las funciones no regionalizadas de Studio o Gemini, dejan de estar disponibles los pasos de IA generativa de Studio [2].",
+    "analysis": "Imaginemos una oficina pública que prepara respuestas a solicitudes ciudadanas. Puede aceptar que un flujo redacte un borrador y reservar el envío a quien firma. La política de colaboración encaja con esa distinción, pero no diseña el procedimiento: si el flujo ya terminaba enviando el correo, ese paso fallará tras la restricción. Habrá que definir quién revisa el borrador y cómo sabe que existe. La política regional plantea otra pregunta: aunque nadie reciba el mensaje, ¿se permitió procesar su contenido donde se generó?\n\nPara no confundir los controles conviene documentar dos datos por paso: a quién puede afectar y dónde se procesa. Un documento compartido dentro de la región puede incumplir la primera condición; una acción privada puede incumplir la segunda. Una licencia que solo cubre almacenamiento no resuelve por sí misma la ubicación del procesamiento [2]. Ninguna de las dos opciones certifica el cumplimiento de la normativa de una institución concreta.",
+    "implications": "Hipótesis para HP Inc.: si un cliente digitaliza formularios en equipos HP y después los tramita en Workspace, podría valorar que el servicio de implantación distinga una captura correcta de un expediente efectivamente recibido. La página pudo escanearse sin problemas y aun así quedar detenido el paso que la comparte.\n\nLa oportunidad dependería de que el cliente use ese sistema y quiera contratar ayuda en esa parte del proceso. Los anuncios de Google no describen una integración con HP ni cambios de funcionamiento en sus impresoras.",
+    "watch": "Antes de cambiar una política para toda la organización, comprobaría con un expediente ficticio si se crea el borrador, quién recibe el aviso de error y quién debe completar la tarea. El dato útil sería el número de trámites completos, no solo el de ejecuciones iniciadas.\n\nTambién contrastaría la edición contratada con los pasos reales del flujo. Según Google, cuando se bloquean las funciones no regionalizadas, algunos pasos, entre ellos los activados por eventos de Drive, pueden quedar bloqueados aunque otras operaciones sobre documentos en Drive sigan cubiertas [2]."
+  },
+  "concepts": [
+    {"term": "Flujo de trabajo", "definition": "Secuencia de pasos para completar una tarea. Puede combinar acciones privadas y otras con efectos sobre recursos compartidos."},
+    {"term": "Residencia de datos", "definition": "Condición sobre la ubicación geográfica de los datos; conviene precisar si cubre el almacenamiento, el procesamiento o ambos."}
+  ],
+  "references": [
+    {
+      "source_id": "google-workspace-docs",
+      "title": "New admin setting to control collaboration steps in Workspace Studio flows",
+      "url": "https://workspaceupdates.googleblog.com/2026/11/new-admin-setting-to-control-collaboration-steps-in-Workspace-Studio-flows.html",
+      "published_at": "2026-11-19",
+      "verified_at": "2026-11-24T14:26:19Z"
+    },
+    {
+      "source_id": "google-workspace-docs",
+      "title": "Google Workspace Studio support for Data Regions is now generally available",
+      "url": "https://workspaceupdates.googleblog.com/2026/11/google-workspace-studio-support-for-Data-Regions-is-now-generally-available.html",
+      "published_at": "2026-11-20",
+      "verified_at": "2026-11-24T14:26:20Z"
+    }
+  ],
+  "primary": 2,
+  "secondary": [4, 5, 1],
+  "industries": ["Sector público", "Tecnología"],
+  "companies": ["Alphabet"],
+  "relevance": 88,
+  "depth": "estándar",
+  "published_at": "2026-11-19",
+  "detected_at": "2026-11-24T14:19:53Z",
+  "incorporated_at": "2026-11-24T14:27:02Z",
+  "method": "curaduría"
+}

@@ -1,0 +1,166 @@
+name: RADAR 9 · edición y publicación
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '15 7 * * *'
+      timezone: America/Santiago
+
+permissions: {}
+concurrency:
+  group: radar9-publicacion-${{ github.event.pull_request.number || 'main' }}
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    if: github.ref == 'refs/heads/main' && (github.event_name != 'push' || contains(github.event.head_commit.message, '[actualizar]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+    outputs:
+      revision: ${{ steps.persist.outputs.revision }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Validar histórico antes de la consulta
+        run: |
+          python -m radar.quality
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Consultar, validar y cerrar la edición
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RADAR9_SEC_CONTACT: ${{ secrets.RADAR9_SEC_CONTACT }}
+          RADAR_MODEL_STANDARD: ${{ vars.RADAR_MODEL_STANDARD || 'gpt-5.4-mini' }}
+          RADAR_MODEL_DEEP: ${{ vars.RADAR_MODEL_DEEP || 'gpt-5.4' }}
+          RADAR_MAX_ARTICLES: ${{ vars.RADAR_MAX_ARTICLES || '4' }}
+          RADAR_DAILY_USD: ${{ vars.RADAR_DAILY_USD || '0.75' }}
+          RADAR_STANDARD_INPUT_USD_M: ${{ vars.RADAR_STANDARD_INPUT_USD_M }}
+          RADAR_STANDARD_OUTPUT_USD_M: ${{ vars.RADAR_STANDARD_OUTPUT_USD_M }}
+          RADAR_DEEP_INPUT_USD_M: ${{ vars.RADAR_DEEP_INPUT_USD_M }}
+          RADAR_DEEP_OUTPUT_USD_M: ${{ vars.RADAR_DEEP_OUTPUT_USD_M }}
+        run: python -m radar.refresh --checkpoint-budget
+      - name: Validar la edición y el artefacto antes de persistir
+        run: |
+          python -m radar.quality
+          python -m radar.site --output dist
+          python -m radar.verify dist
+          git diff --exit-code --diff-filter=MD -- data/articles data/editions
+      - name: Persistir solo datos validados (sin push forzado)
+        id: persist
+        run: |
+          git add -- data
+          if ! git diff --cached --quiet; then
+            git commit -m "Update verified RADAR 9 edition and source health"
+            git push origin HEAD:refs/heads/main
+          fi
+          echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Resumen operativo
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path("data/status.json")
+          if path.exists():
+              s = json.loads(path.read_text())
+              with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+                  print("**Último informe local:**", s.get("last_attempt"), "·", s.get("result"),
+                        "\n\n```json\n" + json.dumps(s.get("metrics", {}), indent=2) + "\n```", file=f)
+          PY
+
+  construir:
+    needs: actualizar
+    if: ${{ !cancelled() && (github.ref == 'refs/heads/main' || github.event_name == 'pull_request') && (needs.actualizar.result == 'success' || needs.actualizar.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    outputs:
+      revision: ${{ steps.build.outputs.revision }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.actualizar.outputs.revision || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Rechazar reescrituras o eliminaciones del archivo histórico
+        env:
+          BEFORE: ${{ github.event.before || github.event.pull_request.base.sha }}
+        run: |
+          if [[ "$BEFORE" =~ ^[0-9a-f]{40}$ && ! "$BEFORE" =~ ^0+$ ]]; then
+            git diff --no-renames --exit-code --diff-filter=MD "$BEFORE" HEAD -- data/articles data/editions
+          fi
+      - name: Tests, histórico y construcción desde una revisión fija
+        id: build
+        run: |
+          python -m unittest discover -s tests -v
+          python -m radar.quality
+          python -m radar.site --output dist
+          revision=$(git rev-parse HEAD)
+          printf '{"revision":"%s"}\n' "$revision" > dist/build-id.json
+          python -m radar.verify dist
+          echo "revision=$revision" >> "$GITHUB_OUTPUT"
+      - name: Comprobar navegación y lectura en Chromium
+        run: |
+          python -m playwright install --with-deps chromium --only-shell
+          python -m checks.browser
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: dist
+
+  desplegar:
+    needs: construir
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main' && needs.construir.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - name: Publicar el artefacto verificado
+        id: pages
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+      - name: Confirmar portada y revisión públicas
+        env:
+          SITE: ${{ steps.pages.outputs.page_url }}
+          REVISION: ${{ needs.construir.outputs.revision }}
+        run: |
+          python - <<'PY'
+          import json, os, time, urllib.request, urllib.error
+          from urllib.parse import urljoin
+          site = os.environ["SITE"].rstrip("/") + "/"
+          sha = os.environ["REVISION"]
+          for attempt in range(10):
+              try:
+                  with urllib.request.urlopen(urljoin(site, "build-id.json?r=" + sha), timeout=10) as r:
+                      deployed = json.load(r)["revision"]
+                  with urllib.request.urlopen(site, timeout=10) as r:
+                      if deployed == sha and "RADAR 9" in r.read().decode().upper():
+                          print("Portada y revisión comprobadas:", site, sha)
+                          break
+              except (OSError, ValueError, KeyError):
+                  pass
+              time.sleep(6)
+          else:
+              raise SystemExit("No se pudo confirmar la revisión publicada en Pages")
+          PY

@@ -1,0 +1,96 @@
+{
+  "last_run": "2026-11-24T14:38:48Z",
+  "sources": {
+    "lenovo-storyhub-docs": {
+      "status": "verificada manualmente",
+      "last_success": "2026-11-24T14:26:19Z",
+      "checked_at": "2026-11-24T14:26:19Z"
+    },
+    "google-workspace-docs": {
+      "status": "verificada manualmente",
+      "last_success": "2026-11-24T14:26:20Z",
+      "checked_at": "2026-11-24T14:26:20Z"
+    },
+    "hp-newsroom-docs": {
+      "status": "verificada manualmente",
+      "last_success": "2026-11-24T14:26:18Z",
+      "checked_at": "2026-11-24T14:26:18Z"
+    },
+    "hp-wxp-docs": {
+      "status": "verificada manualmente",
+      "last_success": "2026-11-24T14:26:21Z",
+      "checked_at": "2026-11-24T14:26:21Z"
+    },
+    "aws-news-docs": {
+      "status": "verificada manualmente",
+      "last_success": "2026-11-24T14:26:18Z",
+      "checked_at": "2026-11-24T14:26:18Z"
+    },
+    "hp-inc-edgar": {
+      "last_success": null,
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "requiere_contacto"
+    },
+    "dell-edgar": {
+      "last_success": null,
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "requiere_contacto"
+    },
+    "hp-certified-pcs": {
+      "last_success": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "disponible"
+    },
+    "hp-certified-printing": {
+      "last_success": null,
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "no disponible"
+    },
+    "lenovo-certified-pcs": {
+      "last_success": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "disponible"
+    },
+    "dell-certified-pcs": {
+      "last_success": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "disponible"
+    },
+    "github-blog": {
+      "last_success": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "disponible"
+    },
+    "google-latam": {
+      "last_success": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "parcial"
+    },
+    "kubernetes-blog": {
+      "last_success": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "disponible"
+    },
+    "nist-governance": {
+      "last_success": "2026-11-24T14:38:48Z",
+      "checked_at": "2026-11-24T14:38:48Z",
+      "status": "disponible"
+    }
+  },
+  "last_attempt": "2026-11-24T14:38:48Z",
+  "enrichment": "pendiente",
+  "result": "edición ya cerrada",
+  "metrics": {
+    "failed_sources": 3,
+    "sources_ok": 7,
+    "warnings": 1,
+    "eligible": 3
+  },
+  "usage": {
+    "requests": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_usd": "0",
+    "pending_reserved_usd": "0"
+  }
+}

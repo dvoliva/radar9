@@ -1,0 +1,42 @@
+{
+  "id": "064bdbb02534d377",
+  "title": "Lenovo atribuye el 36 % de sus ingresos a la IA: por qué esa cifra no mide las ventas de PC con IA",
+  "summary": "Lenovo declaró ingresos por 30.200 millones de dólares en su segundo trimestre fiscal de 2026/27, un 48 % más que un año antes. La compañía clasifica el 36 % del total como relacionado con la IA, pero en esa categoría entran tanto teléfonos y PC con un procesador neuronal como servidores con GPU y servicios para empresas [1]. Para comparar a Lenovo con HP Inc., resulta más útil separar los negocios: el grupo de dispositivos de Lenovo creció un 15 %, mientras que el de infraestructura avanzó un 178 %. Los resultados no revelan cuántos compradores eligieron un PC por sus funciones de IA ni cuánto pagaron de más por ellas.",
+  "sections": {
+    "event": "El 19 de noviembre, Lenovo publicó los resultados de su segundo trimestre fiscal de 2026/27. De los 30.200 millones de dólares facturados por el grupo, más de 10.000 millones correspondieron, según la empresa, a productos y servicios vinculados con la IA. Esa categoría creció un 79 % interanual y representó el 36 % de las ventas [1]. Son cifras de un trimestre ya informado, no una previsión de demanda ni de ventas futuras.\n\nEl grupo de dispositivos inteligentes (IDG) contabilizó 17.400 millones de dólares, un 15 % más interanual, con un margen operativo del 7,1 %. El grupo de infraestructura (ISG), que incluye servidores, registró 11.300 millones, un 178 % más. Soluciones y Servicios (SSG) declaró 3.100 millones, con un crecimiento del 20 % [1]. Los tres porcentajes miden ingresos frente al mismo trimestre del año anterior: ninguno describe el aumento del número de PC vendidos.",
+    "context": "La definición decisiva aparece en una nota del propio comunicado. Lenovo cuenta como dispositivos de IA los PC y teléfonos con unidad de procesamiento neuronal (NPU); como servidores de IA, los equipados con GPU; y como servicios de IA, los que ayudan a construir, ampliar o gestionar sistemas de este tipo [1]. La inclusión de un portátil depende de su configuración, no de una medición de cómo lo usa su dueño.\n\nEl negocio de servicios tampoco es sinónimo de suscripción. Lenovo agrupa servicios gestionados, proyectos y soluciones en una categoría que representa el 63 % de SSG [1]. En otro comunicado, del 23 de noviembre, la compañía describe cómo su plataforma xIQ combina telemetría de dispositivos con datos empresariales para adaptar el soporte a distintos perfiles [2]. Es un ejemplo de lo que ofrece, no un desglose de cuánto ingresó xIQ ni una explicación demostrada del crecimiento del trimestre.",
+    "analysis": "Un servidor con varias GPU y un portátil con NPU entran en el mismo numerador, aunque su precio, comprador y ciclo de renovación sean distintos. Una empresa podría comprar el portátil por autonomía o por el fin de un contrato y el importe seguiría contando como relacionado con la IA según el criterio de Lenovo [1]. Sin unidades, precio y mezcla de modelos, el 36 % no permite separar la disposición a pagar por IA de la incorporación de esa capacidad en la oferta de equipos.\n\nHay un contraste que sí admite el comunicado: la infraestructura creció mucho más rápido que el negocio de dispositivos. No hace falta convertir la facturación de servidores en un indicador del mercado del PC para reconocerlo. Incluso IDG es una comparación imperfecta con un fabricante de computadores porque también contiene teléfonos y otros dispositivos [1].",
+    "implications": "Hipótesis para HP Inc.: si un comprador corporativo evalúa juntos el dispositivo, su financiación y la atención al usuario, Lenovo podría competir por el contrato de soporte además de por la venta del PC. Esa hipótesis sería más plausible donde una empresa contrata las tres cosas en un mismo concurso que donde adquiere equipos y servicios por separado.\n\nLos resultados de Lenovo no permiten concluir que HP haya perdido una venta, que tenga un margen inferior ni que sus clientes estén renovando antes. Para sostener algo así harían falta datos públicos comparables sobre el mismo producto, período y mercado.",
+    "watch": "Buscaría unidades de PC comerciales, precio medio e ingresos por servicios asociados. Si Lenovo no separa PC y teléfonos, el total de IDG no sirve para rellenar el dato que falta.\n\nEn concursos públicos de equipos observaría si el pliego puntúa solo la configuración o exige resultados de soporte durante varios años. Esa distinción ayudaría a separar la oferta que describe un fabricante de lo que contrata un cliente."
+  },
+  "concepts": [
+    {"term": "NPU", "definition": "Procesador especializado en operaciones de redes neuronales. Que un PC lo incorpore no indica cuánto se usa ni qué motivó la compra."},
+    {"term": "Margen operativo", "definition": "Resultado de la operación dividido por los ingresos del mismo negocio. No es la tasa de crecimiento de las ventas."}
+  ],
+  "references": [
+    {
+      "source_id": "lenovo-storyhub-docs",
+      "title": "Lenovo Delivers Record Q2 Performance, Confident in Long-term Hybrid AI Opportunities",
+      "url": "https://news.lenovo.com/pressroom/press-releases/q2-fy-2026-27/",
+      "published_at": "2026-11-19",
+      "verified_at": "2026-11-24T14:26:18Z"
+    },
+    {
+      "source_id": "lenovo-storyhub-docs",
+      "title": "Lenovo Named a Leader in the 2026 IDC MarketScape for Worldwide Digital Workplace Services",
+      "url": "https://news.lenovo.com/pressroom/press-releases/lenovo-leader-2026-idc-marketscape-dws/",
+      "published_at": "2026-11-23",
+      "verified_at": "2026-11-24T14:26:19Z"
+    }
+  ],
+  "primary": 3,
+  "secondary": [9, 6, 1],
+  "industries": ["Tecnología"],
+  "companies": ["Lenovo", "HP Inc."],
+  "relevance": 93,
+  "depth": "estándar",
+  "published_at": "2026-11-19",
+  "detected_at": "2026-11-24T14:19:53Z",
+  "incorporated_at": "2026-11-24T14:27:02Z",
+  "method": "curaduría"
+}

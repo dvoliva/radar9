@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+.venv/
+.tools/
+__pycache__/
+*.py[cod]
+dist/
+.radar/
+test-results/

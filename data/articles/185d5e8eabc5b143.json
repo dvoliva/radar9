@@ -1,0 +1,34 @@
+{
+  "id": "185d5e8eabc5b143",
+  "title": "HP y Mission 44 llevan el diseño y la impresión 3D a una jornada para estudiantes en Las Vegas",
+  "summary": "HP Inc. y Mission 44 comunicaron el 20 de noviembre que estudiantes de Las Vegas trabajaron con el equipo de fabricación aditiva de HP antes del Gran Premio. Debían diseñar, probar y revisar una solución a un problema de automovilismo, siguiendo el recorrido del diseño digital a la pieza física. El director de la fundación cifró en cien los jóvenes que llevaron a Las Vegas para conocer ese mundo [1]. Es una medida de participación, no el número de personas certificadas, contratadas o capacitadas para operar una impresora industrial.",
+  "sections": {
+    "event": "La jornada puso a los estudiantes en el papel de ingenieros: probar una idea y corregirla formaba parte del encargo. El equipo de impresión 3D de HP les mostró cómo intervienen el cómputo, la IA y la fabricación aditiva al pasar del diseño a la pieza [1].\n\nEl comunicado no identifica el modelo de impresora ni dice que cada participante haya diseñado y fabricado una pieza por su cuenta [1].",
+    "context": "La colaboración comenzó en 2025, con actividades en Estados Unidos y Reino Unido y acceso a los cursos gratuitos de HP LIFE [1]. La novedad de noviembre es la jornada, no la creación de la alianza.\n\nLa cifra de cien jóvenes procede del director de Mission 44, uno de los organizadores. No es una evaluación independiente del aprendizaje [1].",
+    "analysis": "El interés pedagógico está en la corrección del primer intento. Ver de cerca una impresora y poder explicar por qué se cambió un diseño son objetivos distintos.\n\nPara distinguirlos haría falta una muestra del trabajo de los estudiantes o una actividad posterior. El comunicado no aporta esa medición [1].",
+    "implications": "Hipótesis para HP Inc.: si el ejercicio pudiera repetirse en centros educativos sin depender del Gran Premio, podría servir para enseñar cómo se toman decisiones de fabricación.\n\nSu valor dependería del acompañamiento docente y del acceso posterior a las herramientas, no solo del número de asistentes.",
+    "watch": "Buscaría dos señales: material que un docente pueda reutilizar y seguimiento de los estudiantes después de la visita.\n\nSaber cuántos completan un segundo proyecto diría más sobre la continuidad del aprendizaje que sumar visitantes de distintas ediciones."
+  },
+  "concepts": [
+    {"term": "Fabricación aditiva", "definition": "Producción de una pieza a partir de un diseño digital mediante la adición sucesiva de material."}
+  ],
+  "references": [
+    {
+      "source_id": "hp-newsroom-docs",
+      "title": "HP and Mission 44 Partner at Las Vegas Grand Prix to Highlight STEM Opportunities for Young People",
+      "url": "https://www.hp.com/us-en/newsroom/press-releases/2026/hp-and-mission-44-partner-at-las-vegas-grand-prix-to-highlight-stem-opportunities-for-young-people.html",
+      "published_at": "2026-11-20",
+      "verified_at": "2026-11-24T14:26:18Z"
+    }
+  ],
+  "primary": 8,
+  "secondary": [9, 6],
+  "industries": ["Educación", "Manufactura"],
+  "companies": ["HP Inc."],
+  "relevance": 72,
+  "depth": "breve",
+  "published_at": "2026-11-20",
+  "detected_at": "2026-11-24T14:19:53Z",
+  "incorporated_at": "2026-11-24T14:27:02Z",
+  "method": "curaduría"
+}

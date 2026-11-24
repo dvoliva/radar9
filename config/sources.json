@@ -1,0 +1,224 @@
+[
+  {
+    "id": "hp-inc-edgar",
+    "org": "HP Inc.",
+    "name": "Resultados de HP Inc. (HPQ): comunicado original anexo al 8-K",
+    "domains": ["www.sec.gov"],
+    "endpoint": "https://www.sec.gov/Archives/edgar/daily-index/",
+    "kind": "sec-8k", "fields": [9, 3, 6, 8], "enabled": true,
+    "cik": "47217", "poll_interval_seconds": 21600, "min_delay_seconds": 2,
+    "article_path": "/Archives/edgar/data/47217/[0-9]{18}/[a-z0-9_-]+\\.html?",
+    "policy": {"status": "reviewed", "scope": "sec-8k", "terms_url": "https://www.sec.gov/about/developer-resources", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "EDGAR permite acceso automatizado identificado. Requiere RADAR9_SEC_CONTACT real. Solo índices diarios, CIK 47217, 8-K y EX-99.1 del emisor; no la hora de carga, el índice ni datos de HPE (CIK 1645590)."},
+    "evidence": "https://www.sec.gov/Archives/edgar/data/47217/000004721725000068/hp103125exhibit991q425.htm",
+    "verification": "200 en índice, ficha y comunicado de 25-11-2025; se comprobó fecha de la nota, Personal Systems y Printing. Es una muestra histórica, no una noticia de la semana."
+  },
+  {
+    "id": "dell-edgar",
+    "org": "Dell Technologies",
+    "name": "Resultados de Dell Technologies: comunicado original anexo al 8-K",
+    "domains": ["www.sec.gov"],
+    "endpoint": "https://www.sec.gov/Archives/edgar/daily-index/",
+    "kind": "sec-8k", "fields": [9, 3, 6], "enabled": true,
+    "cik": "1571996", "poll_interval_seconds": 21600, "min_delay_seconds": 2,
+    "article_path": "/Archives/edgar/data/1571996/[0-9]{18}/[a-z0-9_-]+\\.html?",
+    "policy": {"status": "reviewed", "scope": "sec-8k", "terms_url": "https://www.sec.gov/about/developer-resources", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "Depósitos de Dell en el archivo primario de la SEC. Solo 8-K, anexo del propio emisor, con fecha editorial y contacto declarado; sin descarga masiva."},
+    "verification": "Índice diario de EDGAR: HTTP 200. Los resultados dependen de que exista un EX-99.1 de resultados elegible y un contacto SEC configurado."
+  },
+  {
+    "id": "hp-certified-pcs",
+    "org": "U.S. EPA / ENERGY STAR",
+    "name": "Personal Systems: certificaciones ENERGY STAR de computadores HP",
+    "domains": ["data.energystar.gov"],
+    "endpoint": "https://data.energystar.gov/resource/rxdj-2c88.json?brand_name=HP&$select=pd_id,brand_name,date_certified,:created_at&$order=date_certified%20DESC&$limit=12",
+    "kind": "epa-records", "fields": [9, 6, 3], "enabled": true,
+    "dataset": "rxdj-2c88", "brand": "HP", "poll_interval_seconds": 43200,
+    "policy": {"status": "reviewed", "scope": "epa-records", "terms_url": "https://edg.epa.gov/EPA_Data_License.html", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "El catálogo DCAT de la EPA vincula el dataset a su licencia de datos abiertos. Solo registros de la marca exacta HP, no Hewlett Packard Enterprise. Son certificaciones, no lanzamientos."},
+    "evidence": "https://data.energystar.gov/api/views/rxdj-2c88"
+  },
+  {
+    "id": "hp-certified-printing",
+    "org": "U.S. EPA / ENERGY STAR",
+    "name": "Printing: registro oficial de certificaciones de equipos de imagen HP",
+    "domains": ["data.energystar.gov"],
+    "endpoint": "https://data.energystar.gov/resource/t2v6-g4nf.json?brand_name=HP&$select=pd_id,brand_name,date_qualified,:created_at&$order=date_qualified%20DESC&$limit=12",
+    "kind": "epa-records", "fields": [9, 6], "enabled": true,
+    "dataset": "t2v6-g4nf", "brand": "HP", "poll_interval_seconds": 43200,
+    "policy": {"status": "reviewed", "scope": "epa-records", "terms_url": "https://edg.epa.gov/EPA_Data_License.html", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "Dataset EPA Certified Imaging Equipment, enlazado a la licencia abierta del editor. Solo alta y certificación recientes de marca HP; sin inferir ventas ni lanzamiento."},
+    "evidence": "https://data.energystar.gov/resource/t2v6-g4nf/4514259.json",
+    "verification": "200 en consulta acotada y ficha Color LaserJet Enterprise MFP; este registro usa date_qualified, no date_certified."
+  },
+  {
+    "id": "lenovo-certified-pcs",
+    "org": "U.S. EPA / ENERGY STAR",
+    "name": "Lenovo: certificaciones oficiales de PC y estaciones de trabajo",
+    "domains": ["data.energystar.gov"],
+    "endpoint": "https://data.energystar.gov/resource/rxdj-2c88.json?brand_name=Lenovo&$select=pd_id,brand_name,date_certified,:created_at&$order=date_certified%20DESC&$limit=12",
+    "kind": "epa-records", "fields": [9, 6, 3], "enabled": true,
+    "dataset": "rxdj-2c88", "brand": "Lenovo", "poll_interval_seconds": 43200,
+    "policy": {"status": "reviewed", "scope": "epa-records", "terms_url": "https://edg.epa.gov/EPA_Data_License.html", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "Registro regulatorio primario abierto, no redistribuidor de noticias de Lenovo. ID único de equipo, fecha de certificación y alta original; no se convierte en anuncio comercial."},
+    "evidence": "https://data.energystar.gov/resource/rxdj-2c88/4714374.json",
+    "verification": "200 en ficha única del modelo Lenovo TB312FU; certificación 12-10-2026, no se publica fuera de la ventana."
+  },
+  {
+    "id": "dell-certified-pcs",
+    "org": "U.S. EPA / ENERGY STAR",
+    "name": "Dell: certificaciones oficiales de computadores y estaciones de trabajo",
+    "domains": ["data.energystar.gov"],
+    "endpoint": "https://data.energystar.gov/resource/rxdj-2c88.json?brand_name=DELL&$select=pd_id,brand_name,date_certified,:created_at&$order=date_certified%20DESC&$limit=12",
+    "kind": "epa-records", "fields": [9, 6], "enabled": true,
+    "dataset": "rxdj-2c88", "brand": "DELL", "poll_interval_seconds": 43200,
+    "policy": {"status": "reviewed", "scope": "epa-records", "terms_url": "https://edg.epa.gov/EPA_Data_License.html", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "Datos abiertos del registro certificador; filtro DELL confirmado en el dataset de computadores. Solo fichas primarias individuales."},
+    "evidence": "https://data.energystar.gov/api/views/rxdj-2c88"
+  },
+  {
+    "id": "github-blog",
+    "org": "GitHub",
+    "name": "GitHub Blog: ingeniería de software, IA empresarial y liderazgo técnico",
+    "domains": ["github.blog"], "endpoint": "https://github.blog/feed/",
+    "channel_canonicals": ["https://github.blog/"],
+    "kind": "rss", "fields": [4, 1, 2, 7, 8], "enabled": true,
+    "article_path": "/(?:ai-and-ml|developer-skills|engineering|enterprise-software|news-insights|open-source)/(?:[a-z0-9-]+/){1,3}[a-z0-9-]{9,}/",
+    "article_selector": "body.single-post", "body_selector": "section.post__content",
+    "policy": {"status": "reviewed", "scope": "rss", "terms_url": "https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "Investigación editorial sobre publicaciones institucionales; no datos personales, actividad masiva, repositorios o seguridad operativa. RSS anunciado por el editor y extractos acotados para análisis atribuido."},
+    "verification": "Feed RSS 200; página individual de muestra 200 con fecha original, canonical y sección editorial."
+  },
+  {
+    "id": "google-latam",
+    "org": "Google Latinoamérica",
+    "name": "Google en español para Latinoamérica: empresa, IA, productos y adopción",
+    "domains": ["blog.google"], "endpoint": "https://blog.google/intl/es-419/rss/",
+    "kind": "rss", "fields": [1, 2, 3, 4, 6, 7, 8], "enabled": true,
+    "article_path": "/intl/es-419/(?:[a-z0-9-]+/){1,4}[a-z0-9%-]{8,}/",
+    "article_selector": "article.uni-article-wrapper", "body_selector": "article.uni-article-wrapper",
+    "policy": {"status": "reviewed", "scope": "rss", "terms_url": "https://policies.google.com/terms?hl=en", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "Feed público de la redacción regional; los términos prohíben acceso automatizado contrario a las instrucciones legibles por máquina. Respetar robots, sin buscadores, contenido de usuarios ni reproducción íntegra."},
+    "verification": "200 RSS regional y 200 en la página individual de muestra. No se deduce disponibilidad comercial en Chile a partir del idioma."
+  },
+  {
+    "id": "kubernetes-blog",
+    "org": "Kubernetes / CNCF",
+    "name": "Blog del proyecto Kubernetes: arquitectura, automatización y operación empresarial",
+    "domains": ["kubernetes.io"], "endpoint": "https://kubernetes.io/feed.xml",
+    "kind": "rss", "fields": [4, 2, 7, 8], "enabled": true,
+    "article_path": "/blog/20[0-9]{2}/[01][0-9]/[0-3][0-9]/[a-z0-9-]{5,}/",
+    "article_selector": "main .td-content", "body_selector": "main .td-content",
+    "policy": {"status": "reviewed", "scope": "rss", "terms_url": "https://kubernetes.io/", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "El editor identifica su documentación como CC BY 4.0 en el pie del sitio. Incluir fuente y enlace; solo entradas públicas del proyecto sin código ni guías ofensivas."},
+    "verification": "Feed 200; página de muestra 200 y enlace del editor a licencia CC BY 4.0."
+  },
+  {
+    "id": "nist-governance",
+    "org": "National Institute of Standards and Technology",
+    "name": "NIST: marcos de gobernanza, identidad, privacidad y gestión de riesgos",
+    "domains": ["www.nist.gov"], "endpoint": "https://www.nist.gov/news-events/cybersecurity/rss.xml",
+    "kind": "rss", "fields": [5, 3, 7, 8], "enabled": true,
+    "article_path": "/news-events/news/20[0-9]{2}/[01][0-9]/[a-z0-9-]{8,}",
+    "article_selector": "h1.nist-page__title", "body_selector": "#block-nist-www-content",
+    "headline_filter": "framework|governance|standard|guidance|guideline|risk management|privacy|identit(?:y|ies)|driver.s license",
+    "policy": {"status": "reviewed", "scope": "rss", "terms_url": "https://www.nist.gov/copyrights-disclaimers", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "NIST autoriza distribuir información pública no marcada como protegida; solo noticias institucionales de gobernanza, sin material de terceros, imágenes, código, CVE ni procedimientos técnicos ofensivos."},
+    "verification": "200 RSS temático; noticia de identidad individual 200 con artículo fechado."
+  },
+  {
+    "id": "hp-investor",
+    "org": "HP Inc.", "name": "Relaciones con inversores de HP Inc. (HPQ), no HPE",
+    "domains": ["investor.hp.com"], "endpoint": "https://investor.hp.com/news-events/news/default.aspx",
+    "kind": "html", "fields": [9, 3, 6, 8], "enabled": false,
+    "policy": {"status": "restricted", "scope": "html", "terms_url": "https://www.hp.com/ca-en/terms-of-use.html", "reviewed_at": "2026-11-24", "basis": "Portal 200 y robots con crawl-delay 10. Las condiciones enlazadas limitan el uso empresarial; listado dinámico sin tarjetas de artículos verificadas. No se ejecuta JavaScript ni se consultan servicios internos de Q4."},
+    "alternative_ids": ["hp-inc-edgar", "hp-certified-pcs", "hp-certified-printing"]
+  },
+  {
+    "id": "lenovo",
+    "org": "Lenovo", "name": "StoryHub: comunicados originales de Lenovo",
+    "domains": ["news.lenovo.com"], "endpoint": "https://news.lenovo.com/pressroom/press-releases/feed/",
+    "kind": "rss", "fields": [9, 6, 3, 1, 8], "enabled": false,
+    "article_path": "/pressroom/press-releases/[a-z0-9-]{8,}/",
+    "article_selector": "main article[id^=post-]", "body_selector": "main article[id^=post-]",
+    "policy": {"status": "unverified", "scope": "rss", "terms_url": "https://www.lenovo.com/us/en/legal/", "reviewed_at": "2026-11-24", "basis": "RSS del editor y comunicado individual 200, pero las condiciones enlazadas devolvieron 403. No se presume autorización para recoger las páginas de detalle ni se intenta sortearlo."},
+    "alternative_ids": ["lenovo-certified-pcs"]
+  },
+  {
+    "id": "dell-investor",
+    "org": "Dell Technologies", "name": "Dell Investor Relations: comunicados de resultados y eventos",
+    "domains": ["investors.delltechnologies.com"], "endpoint": "https://investors.delltechnologies.com/news-events/press-releases/rss",
+    "kind": "rss", "fields": [9, 3, 6], "enabled": false,
+    "article_path": "/news-events/press-releases/detail/[0-9]+/[a-z0-9-]{8,}",
+    "article_selector": "article.full-news-article", "body_selector": "article.full-news-article",
+    "policy": {"status": "restricted", "scope": "rss", "terms_url": "https://www.dell.com/en-us/legal/lp/site-terms-of-use", "reviewed_at": "2026-11-24", "basis": "RSS oficial 200: contiene titulares y fechas, pero descripciones vacías. La licencia general de contenido es personal/no comercial. No se presume una licencia adicional para extraer el texto de las páginas."},
+    "alternative_ids": ["dell-edgar", "dell-certified-pcs"]
+  },
+  {
+    "id": "microsoft-cloud",
+    "org": "Microsoft", "name": "Microsoft Source LATAM: nube, IA y transformación empresarial",
+    "domains": ["news.microsoft.com"], "endpoint": "https://news.microsoft.com/source/latam/feed/",
+    "kind": "rss", "fields": [1, 2, 3, 4, 7, 8], "enabled": false,
+    "policy": {"status": "restricted", "scope": "rss", "terms_url": "https://www.microsoft.com/en-us/legal/terms-of-use", "reviewed_at": "2026-11-24", "basis": "RSS regional anunciado y comprobado 200. No se presume una excepción a las condiciones personales/no comerciales de los documentos, ni licencia de scraping para el periódico empresarial."},
+    "alternative_ids": ["google-latam"]
+  },
+  {
+    "id": "aws-news",
+    "org": "Amazon Web Services", "name": "AWS News Blog: anuncios de AWS",
+    "domains": ["aws.amazon.com"], "endpoint": "https://aws.amazon.com/blogs/aws/feed/",
+    "kind": "rss", "fields": [1, 2, 3, 4, 7], "enabled": false,
+    "policy": {"status": "restricted", "scope": "rss", "terms_url": "https://aws.amazon.com/terms/", "reviewed_at": "2026-11-24", "basis": "RSS 200 pero AWS Site Terms excluye robots, minería y herramientas similares sin licencia específica. No automatizar ni usar una copia de terceros."}
+  },
+  {
+    "id": "apache-airflow",
+    "org": "Apache Software Foundation / Apache Airflow",
+    "name": "Apache Airflow: orquestación de datos, automatización y agentes",
+    "domains": ["airflow.apache.org"], "endpoint": "https://airflow.apache.org/blog/index.xml",
+    "kind": "rss", "fields": [2, 7, 4, 1], "enabled": true,
+    "article_path": "/blog/[a-z0-9][a-z0-9.-]{4,}/",
+    "article_selector": "main .blogpost-content", "body_selector": "main .blogpost-content",
+    "policy": {"status": "reviewed", "scope": "rss", "terms_url": "https://www.apache.org/licenses/", "reviewed_at": "2026-11-24", "review_until": "2027-04-30", "basis": "RSS anunciado por el proyecto Apache Airflow en su propio blog, que enlaza la política de licencias de la ASF. Solo extractos de entradas del proyecto, con atribución; sin código, guías de explotación ni textos externos."},
+    "evidence": "https://airflow.apache.org/blog/airflow-3.4.0/",
+    "verification": "200 en robots, RSS y muestra de orquestación/agentes; el feed la fecha el 06-11-2026, por lo que el 24-11 queda correctamente fuera de la ventana."
+  },
+  {
+    "id": "hp-wxp-docs",
+    "org": "HP Inc.",
+    "name": "HP Workforce Experience Platform: notas de producto y análisis",
+    "domains": ["workforceexperience.hp.com"],
+    "endpoint": "https://workforceexperience.hp.com/blog/",
+    "kind": "documental",
+    "fields": [9, 2, 6, 7],
+    "enabled": false
+  },
+  {
+    "id": "hp-newsroom-docs",
+    "org": "HP Inc.",
+    "name": "HP Newsroom: comunicados de HP Inc.",
+    "domains": ["www.hp.com"],
+    "endpoint": "https://www.hp.com/us-en/newsroom.html",
+    "kind": "documental",
+    "fields": [9, 6, 8],
+    "enabled": false
+  },
+  {
+    "id": "lenovo-storyhub-docs",
+    "org": "Lenovo",
+    "name": "Lenovo StoryHub: comunicados corporativos",
+    "domains": ["news.lenovo.com"],
+    "endpoint": "https://news.lenovo.com/pressroom/press-releases/",
+    "kind": "documental",
+    "fields": [3, 6, 9, 1],
+    "enabled": false
+  },
+  {
+    "id": "google-workspace-docs",
+    "org": "Alphabet",
+    "name": "Google Workspace Updates: anuncios de producto",
+    "domains": ["workspaceupdates.googleblog.com"],
+    "endpoint": "https://workspaceupdates.googleblog.com/",
+    "kind": "documental",
+    "fields": [2, 4, 5, 1],
+    "enabled": false
+  },
+  {
+    "id": "aws-news-docs",
+    "org": "Amazon",
+    "name": "AWS News Blog: anuncios técnicos de Amazon Web Services",
+    "domains": ["aws.amazon.com"],
+    "endpoint": "https://aws.amazon.com/blogs/aws/",
+    "kind": "documental",
+    "fields": [1, 4, 2, 3],
+    "enabled": false
+  }
+]

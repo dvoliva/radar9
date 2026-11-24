@@ -1,0 +1,11 @@
+[
+  {"id":1,"name":"Inteligencia artificial aplicada a empresas","priority":"crítica"},
+  {"id":2,"name":"Automatización y transformación de procesos","priority":"crítica"},
+  {"id":3,"name":"Estrategia, finanzas y gestión empresarial","priority":"crítica"},
+  {"id":4,"name":"Software empresarial y arquitectura","priority":"alta"},
+  {"id":5,"name":"Ciberseguridad y regulación digital","priority":"alta"},
+  {"id":6,"name":"Industria tecnológica y mercado de PC","priority":"alta"},
+  {"id":7,"name":"Analítica de datos e inteligencia de negocios","priority":"alta"},
+  {"id":8,"name":"Liderazgo tecnológico y gestión del cambio","priority":"alta"},
+  {"id":9,"name":"Inteligencia competitiva, estrategia y desempeño de HP","priority":"crítica"}
+]

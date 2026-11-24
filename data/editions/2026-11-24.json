@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-24",
+  "published_at": "2026-11-24T14:27:47Z",
+  "briefing": "¿Qué PC vale la pena renovar? Abrimos con las notas de HP sobre WXP: medir la presión de memoria puede ayudar a decidir, pero registrar una flota de impresoras no da acceso automático a su diagnóstico. Lenovo ofrece otro contraste: su facturación vinculada a la IA incluye servidores, teléfonos y servicios, no solo PC. En las plataformas empresariales, Google permite limitar quién recibe el resultado de un flujo, y AWS explica qué costo conserva el cliente al delegar la gestión de una GPU. Cerramos esta selección del 18 al 24 de noviembre con el taller de fabricación aditiva de HP y Mission 44: se conoce su alcance, no todavía su efecto educativo.",
+  "items": [
+    {"id": "341a745a814962c9", "label": "reciente"},
+    {"id": "064bdbb02534d377", "label": "reciente"},
+    {"id": "07567b301e5cfaa3", "label": "reciente"},
+    {"id": "640b356eb46911d7", "label": "reciente"},
+    {"id": "185d5e8eabc5b143", "label": "reciente"}
+  ]
+}

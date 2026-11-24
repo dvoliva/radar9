@@ -1,0 +1,36 @@
+{
+  "id": "640b356eb46911d7",
+  "title": "AWS lleva las GPU a las funciones por eventos de Lambda: qué se delega y qué se paga",
+  "summary": "AWS anunció el 18 de noviembre que las funciones activadas por eventos de Lambda pueden utilizar GPU de la serie G de EC2 cuando se ejecutan en instancias administradas. El servicio apunta a la inferencia con modelos propios y también al procesamiento de imágenes o video. AWS se encarga de los controladores y de ajustar la capacidad, pero cobra la instancia, un cargo de gestión del 9,75 % y las solicitudes [1]. Para quien procesa lotes de documentos, la pregunta no es solo cuánto tarda el modelo: también importan las horas de GPU facturadas, la espera antes de recibir el resultado y si los archivos pueden salir del puesto de trabajo.",
+  "sections": {
+    "event": "El 18 de noviembre, Amazon Web Services anunció la disponibilidad general de aceleración por GPU para Event Functions en Lambda Managed Instances. Permite, por ejemplo, que la llegada de un archivo desencadene un trabajo de inferencia. El cliente entrega la función en una imagen de contenedor; AWS se ocupa de aprovisionar las instancias, gestionar los controladores y distribuir las solicitudes. El anuncio se refiere a las instancias EC2 de la serie G admitidas, no a cualquier modalidad de Lambda [1].\n\nAWS presenta la función como una opción para ejecutar modelos propios ya entrenados. Menciona clasificación de documentos, visión por computador y transcripción, además del procesamiento de video y el renderizado. Señala expresamente que está optimizada para inferencia, no para entrenamiento [1].",
+    "context": "El precio tiene tres partes. A la tarifa de la instancia EC2 se suma un 9,75 % por la gestión de la GPU y la tarifa estándar de Lambda de 0,20 dólares por millón de solicitudes. Según AWS, pueden aplicarse los descuentos de Savings Plans e instancias reservadas; la compañía remite a sus tarifas y disponibilidad por región [1]. Una solicitud no es una página procesada ni una respuesta correcta, de modo que esa última tarifa no es el precio total por documento.\n\nAWS permite atender peticiones concurrentes con una GPU. En la demostración que publicó, cuatro invocaciones que compartían una copia del modelo en memoria terminaron en un tiempo parecido al de una sola [1]. Es una prueba de su autor con un modelo concreto, no una garantía de capacidad para otros modelos, tamaños de entrada o ritmos de llegada.",
+    "analysis": "Consideremos un archivo que recibe escaneos de varias sucursales al cierre del día. Procesar la cola en paralelo podría acortar la espera frente a un único equipo local. Pero si los documentos llegan de uno en uno y deben devolverse de inmediato, pesan más el traslado del archivo y el arranque del trabajo. La misma GPU puede dar resultados económicos distintos sin que cambie su velocidad.\n\nPara comparar alternativas empezaría por el documento aceptado por el usuario, no por el número de llamadas. Habría que incluir los reintentos de páginas ilegibles, el tiempo de transferencia y las horas de capacidad facturadas entre lotes. AWS publica métricas de utilización y memoria de la GPU [1]; servirían para comprobar si el sistema mantiene ocupado el acelerador o si se paga capacidad que rara vez se usa.",
+    "implications": "Hipótesis para HP Inc.: en una organización que solo necesita aceleración durante picos de demanda, enviar los lotes permitidos a la nube podría aplazar la compra de una estación de trabajo más potente en cada sucursal. Si los archivos no pueden salir de la sede, o si la operación debe continuar sin conexión, podría valer más una estación local aun cuando permanezca ociosa por momentos.\n\nSon escenarios alternativos de compra, no un pronóstico sobre ventas de HP. El anuncio de AWS no ofrece una comparación de costos o rendimiento frente a una estación HP ni acredita acuerdos entre ambas empresas.",
+    "watch": "Antes de presupuestar un despliegue, verificaría la familia de instancias y la cuota disponible en la región elegida. AWS advierte que las cuentas nuevas pueden partir de una cuota de cero para las instancias G [1]. Disponibilidad general del servicio no significa capacidad reservada para un cliente.\n\nCompararía al menos una jornada con lotes grandes y otra con pocos documentos. Si solo mejora el tiempo del modelo, pero la espera de punta a punta o el costo por documento aceptado empeoran, el equipo tendría motivos para mantener parte del trabajo en la sede."
+  },
+  "concepts": [
+    {"term": "GPU", "definition": "Procesador gráfico capaz de realizar muchos cálculos en paralelo, útil para imágenes y modelos de IA."},
+    {"term": "Inferencia", "definition": "Uso de un modelo ya entrenado para producir un resultado a partir de una entrada, como clasificar un documento."},
+    {"term": "Concurrencia", "definition": "Capacidad de atender varias solicitudes al mismo tiempo. Compartir un acelerador puede mejorar su uso, pero también introduce competencia por su memoria."}
+  ],
+  "references": [
+    {
+      "source_id": "aws-news-docs",
+      "title": "AWS Lambda now supports GPU instances for Event Functions on Lambda Managed Instances",
+      "url": "https://aws.amazon.com/blogs/aws/aws-lambda-now-supports-gpu-instances-for-event-functions-on-lambda-managed-instances/",
+      "published_at": "2026-11-18",
+      "verified_at": "2026-11-24T14:26:18Z"
+    }
+  ],
+  "primary": 1,
+  "secondary": [4, 2, 3],
+  "industries": ["Tecnología"],
+  "companies": ["Amazon"],
+  "relevance": 86,
+  "depth": "estándar",
+  "published_at": "2026-11-18",
+  "detected_at": "2026-11-24T14:19:53Z",
+  "incorporated_at": "2026-11-24T14:27:02Z",
+  "method": "curaduría"
+}
