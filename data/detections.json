@@ -1,11 +1,21 @@
 {
   "5f364a8612fd0351": {
-    "first_seen": "2026-11-24T14:38:48Z"
+    "first_seen": "2026-11-24T14:38:48Z",
+    "rejected_digest": "ab46646c3d8912848172758a2a629ae6577599612d89d4a101b3de9df980cda9"
   },
   "207a8eaf281fd853": {
     "first_seen": "2026-11-24T14:38:48Z"
   },
   "2e31644f6487f318": {
-    "first_seen": "2026-11-24T14:38:48Z"
+    "first_seen": "2026-11-24T14:38:48Z",
+    "rejected_digest": "eeba4e620bada3a202d80ee9e73331872dbb7293bdf84b598478a162a7d5252b"
+  },
+  "0ef8b273cccd0c03": {
+    "first_seen": "2026-11-25T19:54:27Z",
+    "rejected_digest": "d3ea84938cbb40fccf677d2a6df7adc0b6786cfc342a841898c0b4684eb4c9a0"
+  },
+  "215487d78b45f131": {
+    "first_seen": "2026-11-25T19:54:27Z",
+    "rejected_digest": "a4b6df27b2d394fbc2861090bc7d5a220a5acd9e9e4fddf707b6d79142204fdf"
   }
 }
