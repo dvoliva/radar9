@@ -1,7 +1,15 @@
 {
   "0ef8b273cccd0c03cc875fbe74046389ceedc2d9f21b7b8795e9ad901d53a9a7": {
     "model": "gpt-5.4-mini",
+    "state": "contabilizado",
+    "reserved_usd": "0.019626",
+    "input_tokens": 1138,
+    "output_tokens": 1073,
+    "estimated_usd": "0.005682"
+  },
+  "2e31644f6487f318aea35da35f129eb349bc16c3607a3c25b2d36faaf497f209": {
+    "model": "gpt-5.4-mini",
     "state": "reservado",
-    "reserved_usd": "0.019626"
+    "reserved_usd": "0.0196065"
   }
 }
