@@ -17,5 +17,9 @@
   "215487d78b45f131": {
     "first_seen": "2026-11-25T19:54:27Z",
     "rejected_digest": "a4b6df27b2d394fbc2861090bc7d5a220a5acd9e9e4fddf707b6d79142204fdf"
+  },
+  "f8bba028d4c59e6c": {
+    "first_seen": "2026-11-26T19:36:13Z",
+    "rejected_digest": "fd27101f9cc884711ffe1a40810e2d0f75c686bcf9dd1a77df1c3af89584cc81"
   }
 }
