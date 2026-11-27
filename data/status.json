@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-11-26T19:36:13Z",
+  "last_run": "2026-11-27T19:27:18Z",
   "sources": {
     "lenovo-storyhub-docs": {
       "status": "verificada manualmente",
@@ -28,88 +28,87 @@
     },
     "hp-inc-edgar": {
       "last_success": null,
-      "checked_at": "2026-11-26T19:36:13Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "no disponible"
     },
     "dell-edgar": {
       "last_success": null,
-      "checked_at": "2026-11-26T19:36:13Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "no disponible"
     },
     "hp-certified-pcs": {
-      "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
+      "last_success": "2026-11-27T19:27:18Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "disponible"
     },
     "hp-certified-printing": {
-      "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
+      "last_success": "2026-11-27T19:27:18Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "disponible"
     },
     "lenovo-certified-pcs": {
-      "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
+      "last_success": "2026-11-27T19:27:18Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "disponible"
     },
     "dell-certified-pcs": {
       "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
-      "status": "disponible"
+      "checked_at": "2026-11-27T19:27:18Z",
+      "status": "no disponible"
     },
     "github-blog": {
-      "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
+      "last_success": "2026-11-27T19:27:18Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "parcial"
     },
     "google-latam": {
-      "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
+      "last_success": "2026-11-27T19:27:18Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "disponible"
     },
     "kubernetes-blog": {
-      "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
+      "last_success": "2026-11-27T19:27:18Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "disponible"
     },
     "nist-governance": {
-      "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
+      "last_success": "2026-11-27T19:27:18Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "disponible"
     },
     "apache-airflow": {
-      "last_success": "2026-11-26T19:36:13Z",
-      "checked_at": "2026-11-26T19:36:13Z",
+      "last_success": "2026-11-27T19:27:18Z",
+      "checked_at": "2026-11-27T19:27:18Z",
       "status": "disponible"
     }
   },
-  "last_attempt": "2026-11-26T19:36:13Z",
+  "last_attempt": "2026-11-27T19:27:18Z",
   "enrichment": "activo",
   "result": "sin edición nueva",
   "metrics": {
-    "failed_sources": 2,
-    "sources_ok": 9,
+    "failed_sources": 3,
+    "sources_ok": 8,
     "warnings": 1,
-    "previously_rejected": 3,
-    "eligible": 1,
-    "rejected": 1
+    "previously_rejected": 4,
+    "eligible": 0
   },
   "usage": {
-    "requests": 1,
-    "input_tokens": 1142,
-    "output_tokens": 856,
-    "estimated_usd": "0.0047085",
+    "requests": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_usd": "0",
     "pending_reserved_usd": "0"
   },
   "models": {
     "estándar": {
       "name": "gpt-5.4-mini",
       "available": true,
-      "checked_at": "2026-11-26T19:36:13Z"
+      "checked_at": "2026-11-27T19:27:18Z"
     },
     "profundo": {
       "name": "gpt-5.4",
       "available": true,
-      "checked_at": "2026-11-26T19:36:13Z"
+      "checked_at": "2026-11-27T19:27:18Z"
     }
   }
 }
